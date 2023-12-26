@@ -4,6 +4,7 @@ import { tailwindcss } from "./config/tailwindcss";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: true,
+  spaLoadingTemplate: false,
 
   modules: ["@nuxtjs/tailwindcss", "nuxt-icon"],
 

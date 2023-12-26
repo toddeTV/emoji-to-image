@@ -18,6 +18,6 @@ const message =
     <h1>Error {{ code }}</h1>
     <div class="mb-2">{{ message }}</div>
     <!-- <pre>{{ props.error }}</pre> -->
-    <button @click="handleError()">Back home</button>
+    <button type="button" @click="handleError()">Back home</button>
   </div>
 </template>
