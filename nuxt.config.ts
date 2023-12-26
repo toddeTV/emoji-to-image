@@ -1,4 +1,25 @@
+import { version } from "./package.json";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true }
-})
+  ssr: true,
+
+  modules: [],
+
+  runtimeConfig: {
+    // [private] `.env` variables that are only available in SSR on server and will not be shipped to client
+
+    // [public] `.env` variables that will be shipped to the client
+    public: {
+      version: `v${version}`, // not a `.env` variable, is loaded from `/package.json`
+    },
+  },
+
+  devServer: {
+    https: false,
+  },
+
+  devtools: {
+    enabled: true,
+  },
+});
