@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from "html-to-image";
+import { toPng } from "html-to-image";
 import download from "downloadjs";
 
 async function divToPng() {
