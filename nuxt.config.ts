@@ -1,4 +1,5 @@
 import { version } from "./package.json";
+import { tailwindcss } from "./config/tailwindcss";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -15,6 +16,10 @@ export default defineNuxtConfig({
       version: `v${version}`, // not a `.env` variable, is loaded from `/package.json`
     },
   },
+
+  css: ["~/assets/styles/main.css"],
+
+  tailwindcss,
 
   devServer: {
     https: false,
