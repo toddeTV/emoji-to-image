@@ -9,19 +9,28 @@ devDependencies:
     specifier: 1.0.6
     version: 1.0.6(nuxt@3.9.0)
   '@nuxtjs/tailwindcss':
-    specifier: ^6.10.1
+    specifier: 6.10.1
     version: 6.10.1
+  '@types/downloadjs':
+    specifier: 1.4.6
+    version: 1.4.6
   '@types/node':
     specifier: 20.10.5
     version: 20.10.5
   dotenv-cli:
     specifier: 7.3.0
     version: 7.3.0
+  downloadjs:
+    specifier: 1.4.7
+    version: 1.4.7
+  html-to-image:
+    specifier: 1.11.11
+    version: 1.11.11
   nuxt:
     specifier: 3.9.0
     version: 3.9.0(@types/node@20.10.5)(typescript@5.3.3)
   nuxt-icon:
-    specifier: ^0.6.7
+    specifier: 0.6.7
     version: 0.6.7(nuxt@3.9.0)(vue@3.3.13)
   typescript:
     specifier: 5.3.3
@@ -1589,6 +1598,10 @@ packages:
       minimatch: 9.0.3
     dev: true
 
+  /@types/downloadjs@1.4.6:
+    resolution: {integrity: sha512-mp3w70vsaiLRT9ix92fmI9Ob2yJAPZm6tShJtofo2uHbN11G2i6a0ApIEjBl/kv3e9V7Pv7jMjk1bUwYWvMHvA==}
+    dev: true
+
   /@types/estree@1.0.5:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
     dev: true
@@ -2757,6 +2770,10 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
+  /downloadjs@1.4.7:
+    resolution: {integrity: sha512-LN1gO7+u9xjU5oEScGFKvXhYf7Y/empUIIEAGBs1LzUq/rg5duiDrkuH5A2lQGd5jfMOb9X9usDa2oVXwJ0U/Q==}
+    dev: true
+
   /duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
     dev: true
@@ -3268,6 +3285,10 @@ packages:
   /html-tags@3.3.1:
     resolution: {integrity: sha512-ztqyC3kLto0e9WbNp0aeP+M3kTt+nbaIveGmUxAtZa+8iFgKLUOD4YKM5j+f3QD89bra7UeumolZHKuOXnTmeQ==}
     engines: {node: '>=8'}
+    dev: true
+
+  /html-to-image@1.11.11:
+    resolution: {integrity: sha512-9gux8QhvjRO/erSnDPv28noDZcPZmYE7e1vFsBLKLlRlKDSqNJYebj6Qz1TGd5lsRV+X+xYyjCKjuZdABinWjA==}
     dev: true
 
   /http-assert@1.5.0:

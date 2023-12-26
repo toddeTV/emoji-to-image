@@ -31,11 +31,14 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "1.0.6",
-    "@nuxtjs/tailwindcss": "^6.10.1",
+    "@nuxtjs/tailwindcss": "6.10.1",
+    "@types/downloadjs": "1.4.6",
     "@types/node": "20.10.5",
     "dotenv-cli": "7.3.0",
+    "downloadjs": "1.4.7",
+    "html-to-image": "1.11.11",
     "nuxt": "3.9.0",
-    "nuxt-icon": "^0.6.7",
+    "nuxt-icon": "0.6.7",
     "typescript": "5.3.3",
     "vue": "3.3.13",
     "vue-router": "4.2.5"
