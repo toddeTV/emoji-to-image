@@ -1,0 +1,34 @@
+{
+  "name": "toddetv_sti",
+  "version": "0.0.0",
+  "description": "",
+  "license": "CC-BY-NC-SA-4.0",
+  "private": false,
+  "author": "Thorsten Seyschab <business@todde.tv> (https://todde.tv/)",
+  "contributors": [
+    {
+      "name": "Thorsten Seyschab",
+      "email": "business@todde.tv",
+      "url": "https://todde.tv/"
+    }
+  ],
+  "homepage": "https://todde.tv/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toddeTV/smiley-to-image"
+  },
+  "bugs": {
+    "url": "https://github.com/toddeTV/smiley-to-image/issues"
+  },
+  "engines": {
+    "node": "18",
+    "pnpm": "8"
+  },
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "20.10.5",
+    "typescript": "5.3.3"
+  },
+  "overrides": {}
+}
