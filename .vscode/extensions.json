@@ -1,0 +1,24 @@
+{
+  "recommendations": [
+    "antfu.goto-alias",
+    "antfu.iconify",
+    "bradlc.vscode-tailwindcss",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "EditorConfig.EditorConfig",
+    "esbenp.prettier-vscode",
+    "genuitecllc.codetogether",
+    "github.copilot",
+    "github.vscode-pull-request-github",
+    "gruntfuggly.todo-tree",
+    "jnoortheen.nix-ide",
+    "Lokalise.i18n-ally",
+    "mkhl.direnv",
+    "naumovs.color-highlight",
+    "Orta.vscode-twoslash-queries",
+    "streetsidesoftware.code-spell-checker",
+    "streetsidesoftware.code-spell-checker-german",
+    "Vue.volar",
+    "Vue.vscode-typescript-vue-plugin"
+  ]
+}
