@@ -4,7 +4,8 @@
   },
   "cSpell.language": "en,de-de",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    "source.fixAll.sortJSON": true
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontSize": 15,
@@ -106,12 +107,12 @@
   "nuxt.isNuxtApp": true,
   "prettier.requireConfig": true,
   "search.exclude": {
+    "**/.nuxt": true,
+    "**/.output": true,
     "**/.pnp.*": true,
     "**/dist": true,
     "node_modules": true,
-    "**/.nuxt": true,
-    "pnpm-lock.yaml": true,
-    "**/.output": true
+    "pnpm-lock.yaml": true
   },
   "search.useIgnoreFiles": false,
   "todo-tree.filtering.excludeGlobs": ["**/node_modules", "patches"],
