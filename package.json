@@ -23,16 +23,16 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
-    "dev:network": "nuxt dev --host",
+    "dev": "dotenv nuxt dev --port $NUXT_PORT",
+    "dev:network": "dotenv nuxt dev --port $NUXT_PORT --host",
     "generate": "nuxt generate",
     "postinstall": "nuxt prepare",
     "preview": "nuxt preview"
   },
-  "dependencies": {},
   "devDependencies": {
-    "@nuxt/devtools": "latest",
+    "@nuxt/devtools": "1.0.6",
     "@types/node": "20.10.5",
+    "dotenv-cli": "7.3.0",
     "nuxt": "3.9.0",
     "typescript": "5.3.3",
     "vue": "3.3.13",
