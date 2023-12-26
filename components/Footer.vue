@@ -21,11 +21,11 @@ const env = useRuntimeConfig();
 
       <div class="flex gap-1 items-start">
         <span>Created with</span>
-        <naive-icon
+        <Icon
           :size="18"
           name="mdi:cards-heart"
           class="animate-bounce text-primary-600"
-        ></naive-icon>
+        />
         <nuxt-link to="https://todde.tv/" target="_blank">
           <span>Thorsten Seyschab</span>
         </nuxt-link>
