@@ -1,10 +1,11 @@
 import { version } from "./package.json";
+import { tailwindcss } from "./config/tailwindcss";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: true,
 
-  modules: [],
+  modules: ["@nuxtjs/tailwindcss", "nuxt-icon"],
 
   runtimeConfig: {
     // [private] `.env` variables that are only available in SSR on server and will not be shipped to client
@@ -15,6 +16,10 @@ export default defineNuxtConfig({
       version: `v${version}`, // not a `.env` variable, is loaded from `/package.json`
     },
   },
+
+  css: ["~/assets/styles/main.css"],
+
+  tailwindcss,
 
   devServer: {
     https: false,

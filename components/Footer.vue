@@ -22,8 +22,7 @@ const env = useRuntimeConfig();
       <div class="flex gap-1 items-start">
         <span>Created with</span>
         <Icon
-          :size="18"
-          name="mdi:cards-heart"
+          name="ph:heart-straight-fill"
           class="animate-bounce text-primary-600"
         />
         <nuxt-link to="https://todde.tv/" target="_blank">

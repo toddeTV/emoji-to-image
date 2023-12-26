@@ -42,6 +42,11 @@ Current deployment on: NONE
 - All JSON files inside `/.vscode/*` will not be sorted automatically. For them, use `{Ctrl}+{Shift}+{P}` -> `Sort JSON`
 - For `package.json` use the console command `npx sort-package-json`
 
+### Docs and helper websites
+
+- [iconify (Phosphor Icons)](http://icon-sets.iconify.design/ph/)
+- [TailwindCSS cheat sheet](https://nerdcave.com/tailwind-cheat-sheet)
+
 ## Attribution
 
 Head of project:
