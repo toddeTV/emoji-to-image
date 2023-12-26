@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from "html-to-image";
-import * as download from "downloadjs";
+import download from "downloadjs";
 
 async function divToPng() {
   const domElement = document.getElementById("pngWrapper");
@@ -8,7 +8,7 @@ async function divToPng() {
     return;
   }
   const dataUrl = await toPng(domElement);
-  download(dataUrl, "my-node.png");
+  download(dataUrl, "my-node.png", "image/png");
 }
 </script>
 
