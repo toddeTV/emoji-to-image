@@ -4,7 +4,7 @@ import { version } from "./package.json";
 export default defineNuxtConfig({
   ssr: true,
 
-  modules: [],
+  modules: ["@nuxtjs/tailwindcss"],
 
   runtimeConfig: {
     // [private] `.env` variables that are only available in SSR on server and will not be shipped to client
