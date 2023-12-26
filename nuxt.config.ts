@@ -8,6 +8,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     // [private] `.env` variables that are only available in SSR on server and will not be shipped to client
+    port: "",
 
     // [public] `.env` variables that will be shipped to the client
     public: {
