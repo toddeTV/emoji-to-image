@@ -4,8 +4,8 @@
   },
   "cSpell.language": "en,de-de",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.fixAll.sortJSON": true
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.sortJSON": "explicit"
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontSize": 15,
