@@ -5,6 +5,15 @@
 !**/.env.example
 !**/.env.*.example
 
+# ===== Nuxt3
+
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
 # ===== OS
 
 .DS_Store*

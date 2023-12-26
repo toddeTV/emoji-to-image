@@ -36,6 +36,12 @@ Current deployment on: NONE
 6. Rename `.env.example` to `.env` and set the environment variables.
 7. Install dependencies: `pnpm i`
 
+### JSON Sorting
+
+- Most JSON files will be sorted automatically on save due to the `/.vscode/settings.json` settings
+- All JSON files inside `/.vscode/*` will not be sorted automatically. For them, use `{Ctrl}+{Shift}+{P}` -> `Sort JSON`
+- For `package.json` use the console command `npx sort-package-json`
+
 ## Attribution
 
 Head of project:

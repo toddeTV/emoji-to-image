@@ -1,9 +1,17 @@
 {
   "name": "toddetv_sti",
   "version": "0.0.0",
-  "description": "",
-  "license": "CC-BY-NC-SA-4.0",
   "private": false,
+  "description": "",
+  "homepage": "https://todde.tv/",
+  "bugs": {
+    "url": "https://github.com/toddeTV/smiley-to-image/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toddeTV/smiley-to-image"
+  },
+  "license": "CC-BY-NC-SA-4.0",
   "author": "Thorsten Seyschab <business@todde.tv> (https://todde.tv/)",
   "contributors": [
     {
@@ -12,23 +20,27 @@
       "url": "https://todde.tv/"
     }
   ],
-  "homepage": "https://todde.tv/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/toddeTV/smiley-to-image"
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "dotenv nuxt dev --port $NUXT_PORT",
+    "dev:network": "dotenv nuxt dev --port $NUXT_PORT --host",
+    "generate": "nuxt generate",
+    "postinstall": "nuxt prepare",
+    "preview": "nuxt preview"
   },
-  "bugs": {
-    "url": "https://github.com/toddeTV/smiley-to-image/issues"
+  "devDependencies": {
+    "@nuxt/devtools": "1.0.6",
+    "@types/node": "20.10.5",
+    "dotenv-cli": "7.3.0",
+    "nuxt": "3.9.0",
+    "typescript": "5.3.3",
+    "vue": "3.3.13",
+    "vue-router": "4.2.5"
   },
   "engines": {
     "node": "18",
     "pnpm": "8"
-  },
-  "scripts": {},
-  "dependencies": {},
-  "devDependencies": {
-    "@types/node": "20.10.5",
-    "typescript": "5.3.3"
   },
   "overrides": {}
 }
