@@ -1,10 +1,10 @@
-# smiley-to-image
+# emoji-to-image
 
 ## project overview
 
-This project is for converting smiley (see emoji and emoticon) to images. It can convert single emojis or multiple to grid layout.
+This project is for converting emoji (see smiley and emoticon) to images. It can convert single emojis or multiple to grid layout.
 
-Short project name: `sti` (stands for `smiley-to-image`)
+Short project name: `eti` (stands for `emoji-to-image`)
 
 Current deployment on: NONE
 

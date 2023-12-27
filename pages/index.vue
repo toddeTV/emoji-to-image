@@ -5,13 +5,13 @@ import { z } from "zod";
 import type { FormSubmitEvent } from "#ui/types";
 
 const schema = z.object({
-  smiley: z.string().emoji(),
+  emoji: z.string().emoji(),
 });
 
 type Schema = z.output<typeof schema>;
 
 const state = reactive({
-  smiley: undefined,
+  emoji: undefined,
 });
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
@@ -34,8 +34,8 @@ async function divToPng() {
     <ColorModeSwitch />
 
     <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-      <UFormGroup label="Smileys" name="smiley">
-        <UInput v-model="state.smiley" type="smiley" />
+      <UFormGroup label="Emojis" name="emoji">
+        <UInput v-model="state.emoji" type="emoji" />
       </UFormGroup>
 
       <UButton type="submit"> Submit </UButton>
