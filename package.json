@@ -30,6 +30,7 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
+    "@iconify-json/ph": "1.1.9",
     "@nuxt/devtools": "1.0.6",
     "@nuxt/ui": "2.11.1",
     "@types/downloadjs": "1.4.6",
