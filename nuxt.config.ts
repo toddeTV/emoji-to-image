@@ -1,12 +1,13 @@
 import { version } from "./package.json";
-import { tailwindcss } from "./config/tailwindcss";
+import { nuxtConfig as tailwindcssNuxtConfig } from "./config/tailwind-css";
+import { nuxtConfig as uiNuxtConfig } from "./config/nuxt-ui";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: true,
   spaLoadingTemplate: false,
 
-  modules: ["@nuxtjs/tailwindcss", "nuxt-icon"],
+  modules: ["@nuxt/ui"],
 
   runtimeConfig: {
     // [private] `.env` variables that are only available in SSR on server and will not be shipped to client
@@ -20,7 +21,8 @@ export default defineNuxtConfig({
 
   css: ["~/assets/styles/main.css"],
 
-  tailwindcss,
+  tailwindcss: tailwindcssNuxtConfig,
+  ui: uiNuxtConfig,
 
   devServer: {
     https: false,

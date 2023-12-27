@@ -14,6 +14,7 @@ async function divToPng() {
 
 <template>
   <div>
+    <ColorModeSwitch />
     <div id="pngWrapper">Hello world!</div>
     <button type="button" @click="divToPng">Generate & Download</button>
   </div>

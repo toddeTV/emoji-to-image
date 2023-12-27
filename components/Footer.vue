@@ -21,9 +21,10 @@ const env = useRuntimeConfig();
 
       <div class="flex gap-1 items-start">
         <span>Created with</span>
-        <Icon
+        <UIcon
           name="ph:heart-straight-fill"
           class="animate-bounce text-primary-600"
+          dynamic
         />
         <nuxt-link to="https://todde.tv/" target="_blank">
           <span>Thorsten Seyschab</span>

@@ -11,6 +11,9 @@
   "editor.fontSize": 15,
   "editor.formatOnSave": true,
   "editor.linkedEditing": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
   "editor.rulers": [120],
   "eslint.validate": ["javascript", "typescript", "vue"],
   "explorer.fileNesting.enabled": true,
@@ -115,6 +118,12 @@
     "pnpm-lock.yaml": true
   },
   "search.useIgnoreFiles": false,
+  "tailwindCSS.classAttributes": ["class", "className", "ngClass", "ui"],
+  "tailwindCSS.experimental.classRegex": [
+    ["ui:\\s*{([^)]*)\\s*}", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["/\\*ui\\*/\\s*{([^;]*)}", ":\\s*[\"'`]([^\"'`]*).*?[\"'`]"]
+  ],
+  "tailwindCSS.experimental.configFile": "tailwind.config.ts",
   "todo-tree.filtering.excludeGlobs": ["**/node_modules", "patches"],
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.preferences.importModuleSpecifier": "non-relative",
