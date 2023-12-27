@@ -1,6 +1,23 @@
 <script setup lang="ts">
 import { toPng } from "html-to-image";
 import download from "downloadjs";
+import { z } from "zod";
+import type { FormSubmitEvent } from "#ui/types";
+
+const schema = z.object({
+  smiley: z.string().emoji(),
+});
+
+type Schema = z.output<typeof schema>;
+
+const state = reactive({
+  smiley: undefined,
+});
+
+async function onSubmit(event: FormSubmitEvent<Schema>) {
+  // Do something with data
+  console.log(event.data);
+}
 
 async function divToPng() {
   const domElement = document.getElementById("pngWrapper");
@@ -15,7 +32,17 @@ async function divToPng() {
 <template>
   <div>
     <ColorModeSwitch />
+
+    <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
+      <UFormGroup label="Smileys" name="smiley">
+        <UInput v-model="state.smiley" type="smiley" />
+      </UFormGroup>
+
+      <UButton type="submit"> Submit </UButton>
+    </UForm>
+
     <div id="pngWrapper">Hello world!</div>
+
     <button type="button" @click="divToPng">Generate & Download</button>
   </div>
 </template>
