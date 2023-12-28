@@ -1,6 +1,7 @@
 import { version } from "./package.json";
-import { nuxtConfig as tailwindcssNuxtConfig } from "./config/tailwind-css";
-import { nuxtConfig as uiNuxtConfig } from "./config/nuxt-ui";
+import { nuxtConfig as tailwindcssNuxtConfig } from "./config/tailwind-css.js";
+import { nuxtConfig as uiNuxtConfig } from "./config/nuxt-ui.js";
+import { nuxtConfig as colorModeNuxtConfig } from "./config/color-mode.js";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -23,6 +24,7 @@ export default defineNuxtConfig({
 
   tailwindcss: tailwindcssNuxtConfig,
   ui: uiNuxtConfig,
+  colorMode: colorModeNuxtConfig,
 
   devServer: {
     https: false,
