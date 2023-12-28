@@ -14,25 +14,59 @@ const schema = z.object({
 
 type Schema = z.output<typeof schema>;
 
+type SchemaWithTransformedEmojis = Schema & {
+  emojiImages: string[][][];
+};
+
 const state = reactive<Schema>({
-  emoji: "😀😃😄😄",
+  emoji: "😀😃😅😄",
   width: 64,
   height: 64,
   bgColor: "#392580",
-  gridSize: 4,
+  gridSize: 2,
 });
 
-const lastValidState = ref<Schema>({ ...state });
+const lastValidState = ref<SchemaWithTransformedEmojis>(getValidState(state)!); //TODO do not force non undefined here
 
 watch(
   () => state,
   (newState, oldState) => {
-    if (schema.safeParse(newState).success) {
-      lastValidState.value = { ...newState };
+    //TODO add deep compare, maybe with lodash? (Not `if (newState !== oldState) { ... }`)
+    const validState = getValidState(newState);
+    if (validState !== undefined) {
+      lastValidState.value = validState;
     }
   },
   { deep: true }
 );
+
+function getValidState(
+  newState: Schema
+): SchemaWithTransformedEmojis | undefined {
+  if (schema.safeParse(newState).success) {
+    return {
+      ...newState,
+      emojiImages: splitEmojis(state.emoji, state.gridSize),
+    };
+  }
+  return undefined;
+}
+
+function splitEmojis(
+  emoji: string,
+  gridSize: number
+): SchemaWithTransformedEmojis["emojiImages"] {
+  const emojiArray: string[] = [...emoji];
+  const rows = Array.from(
+    { length: Math.ceil(emojiArray.length / gridSize) },
+    (_, index) => emojiArray.slice(index * gridSize, (index + 1) * gridSize)
+  );
+  const emojiImages = Array.from(
+    { length: Math.ceil(rows.length / gridSize) },
+    (_, index) => rows.slice(index * gridSize, (index + 1) * gridSize)
+  );
+  return emojiImages;
+}
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   divToPngAndDownload();
@@ -101,16 +135,31 @@ async function divToPngAndDownload() {
 
       <UCard>
         <template #header> Preview </template>
-        <div class="border w-fit h-fit">
+        <div class="flex gap-2">
           <div
-            id="pngWrapper"
-            :style="`
-            width: ${lastValidState.width}px;
-            height: ${lastValidState.height}px;
-            background-color: ${lastValidState.bgColor};
-          `"
+            class="border w-fit h-fit"
+            v-for="(emojiImage, emojiImageIndex) in lastValidState.emojiImages"
+            :key="emojiImageIndex"
           >
-            {{ lastValidState.emoji }}
+            <div
+              :id="`pngWrapper${emojiImageIndex}`"
+              :style="`
+                width: ${lastValidState.width}px;
+                height: ${lastValidState.height}px;
+                background-color: ${lastValidState.bgColor};
+              `"
+              class="flex flex-col justify-evenly"
+            >
+              <div
+                v-for="(row, rowIndex) in emojiImage"
+                :key="rowIndex"
+                class="flex flex-row justify-evenly"
+              >
+                <div v-for="(emoji, emojiIndex) in row" :key="emojiIndex">
+                  {{ emoji }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </UCard>
