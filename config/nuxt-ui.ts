@@ -12,4 +12,5 @@ export const nuxtConfig: NuxtConfig["ui"] = {
 export const appConfig: AppConfigInput["ui"] = {
   primary: "prim",
   gray: "cool",
+  // strategy: "override",
 };

@@ -1,30 +1,28 @@
 <script setup lang="ts">
 const colorMode = useColorMode();
 
-function setPageColorMode(newColorMode: "dark" | "light") {
-  colorMode.value = newColorMode;
-}
+const isDark = computed({
+  get() {
+    return colorMode.value === "dark";
+  },
+  set() {
+    colorMode.preference = colorMode.value === "dark" ? "light" : "dark";
+  },
+});
 </script>
 
 <template>
   <ClientOnly>
     <UButton
-      icon="i-ph-moon-fill"
-      size="sm"
-      color="primary"
-      square
-      variant="link"
-      v-if="colorMode.value === 'dark'"
-      @click="setPageColorMode('light')"
+      :icon="isDark ? 'i-ph-moon-fill' : 'i-ph-sun-fill'"
+      color="gray"
+      variant="ghost"
+      aria-label="Theme"
+      @click="isDark = !isDark"
     />
-    <UButton
-      icon="i-ph-sun-fill"
-      size="sm"
-      color="primary"
-      square
-      variant="link"
-      v-else-if="colorMode.value === 'light'"
-      @click="setPageColorMode('dark')"
-    />
+
+    <template #fallback>
+      <div class="w-8 h-8" />
+    </template>
   </ClientOnly>
 </template>
