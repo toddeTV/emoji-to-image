@@ -20,6 +20,9 @@ devDependencies:
   '@types/node':
     specifier: 20.10.5
     version: 20.10.5
+  apple-color-emoji:
+    specifier: 1.0.1
+    version: 1.0.1
   dotenv-cli:
     specifier: 7.3.0
     version: 7.3.0
@@ -2192,6 +2195,10 @@ packages:
     dependencies:
       normalize-path: 3.0.0
       picomatch: 2.3.1
+    dev: true
+
+  /apple-color-emoji@1.0.1:
+    resolution: {integrity: sha512-VtCPw9MLGu2MD1q0CltItrY/JUUJVeBqxhTkxEOybZUvPJqz64prJLlsw9yVns9e3nvtYnFbsepQwgUhzqoFkw==}
     dev: true
 
   /aproba@2.0.0:
