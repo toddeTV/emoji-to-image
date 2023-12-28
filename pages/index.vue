@@ -4,6 +4,17 @@ import download from "downloadjs";
 import { z } from "zod";
 import type { FormSubmitEvent } from "#ui/types";
 
+const gridTypes = [
+  {
+    name: "force grid",
+    value: "even",
+  },
+  {
+    name: "fill only existing emojis",
+    value: "fill",
+  },
+];
+
 const schema = z.object({
   emoji: z.string().emoji(),
   width: z.number().int().min(8).max(512),
@@ -11,6 +22,7 @@ const schema = z.object({
   bgColor: z.string().min(4).max(9).regex(/^#/),
   gridSize: z.number().int().min(1).max(16),
   emojiScale: z.number().int().min(1).max(100),
+  gridType: z.union([z.literal("even"), z.literal("fill")]),
 });
 
 type Schema = z.output<typeof schema>;
@@ -28,6 +40,7 @@ const state = reactive<Schema>({
   bgColor: "#392580",
   gridSize: 2,
   emojiScale: 80,
+  gridType: "even",
 });
 
 const lastValidState = ref<SchemaWithTransformedEmojis>(getValidState(state)!); //TODO do not force non undefined here
@@ -67,7 +80,7 @@ function splitEmojis(
   emoji: string,
   gridSize: number
 ): SchemaWithTransformedEmojis["emojiImages"] {
-  const emojiArray: string[] = [...emoji];
+  const emojiArray: string[] = [...emoji]; //TODO this does not work if combined emojis are used (e.g. 🏳️‍🌈 or 👨‍👨‍👧‍👧)
   const rows = Array.from(
     { length: Math.ceil(emojiArray.length / gridSize) },
     (_, index) => emojiArray.slice(index * gridSize, (index + 1) * gridSize)
@@ -158,6 +171,14 @@ async function divToPngAndDownload() {
             <UInput v-model="state.gridSize" type="number" />
           </UFormGroup>
 
+          <UFormGroup label="Grid Type" name="gridType">
+            <USelect
+              v-model="state.gridType"
+              :options="gridTypes"
+              option-attribute="name"
+            />
+          </UFormGroup>
+
           <UFormGroup label="Emoji Scale" name="emojiScale">
             <UInput v-model="state.emojiScale" class="w-28" type="number">
               <template #trailing>
@@ -185,7 +206,9 @@ async function divToPngAndDownload() {
               `"
               class="flex flex-col justify-evenly"
             >
+              <!-- TODO here the inner div is redundant, refactor! -->
               <div
+                v-if="lastValidState.gridType === 'fill'"
                 v-for="(row, rowIndex) in emojiImage"
                 :key="rowIndex"
                 class="flex flex-row justify-evenly"
@@ -202,6 +225,36 @@ async function divToPngAndDownload() {
                   `"
                 >
                   {{ emoji }}
+                </div>
+              </div>
+              <div
+                v-if="lastValidState.gridType === 'even'"
+                v-for="rowIndex in Array.from(
+                  { length: lastValidState.gridSize },
+                  (_, index) => index
+                )"
+                :key="rowIndex"
+                class="flex flex-row justify-evenly"
+              >
+                <div
+                  v-for="columnIndex in Array.from(
+                    { length: lastValidState.gridSize },
+                    (_, index) => index
+                  )"
+                  :key="columnIndex"
+                  class="flex justify-center items-center"
+                  :style="`
+                    width: ${lastValidState.emojiContainerDimensionPx}px;
+                    height: ${lastValidState.emojiContainerDimensionPx}px;
+                    line-height: ${lastValidState.emojiFontSizePx}px;
+                    font-size: ${lastValidState.emojiFontSizePx}px;
+                  `"
+                >
+                  {{
+                    emojiImage[rowIndex]
+                      ? emojiImage[rowIndex][columnIndex]
+                      : ""
+                  }}
                 </div>
               </div>
             </div>
