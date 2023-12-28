@@ -3,6 +3,8 @@ import { toPng } from "html-to-image";
 import download from "downloadjs";
 import { z } from "zod";
 import type { FormSubmitEvent } from "#ui/types";
+import { card } from "#ui/ui.config";
+// import lodash from "#ui/utils/lodash.js";
 
 const gridTypes = [
   {
@@ -124,6 +126,8 @@ async function divToPngAndDownload() {
   const dataUrl = await toPng(domElement);
   download(dataUrl, "my-node.png", "image/png");
 }
+
+const nuxtUiConfigCard = getNuxtUiConfig("card", card);
 </script>
 
 <template>
@@ -193,7 +197,7 @@ async function divToPngAndDownload() {
         <template #header> Preview </template>
         <div class="flex gap-2">
           <div
-            class="border w-fit h-fit"
+            :class="['w-fit h-fit', nuxtUiConfigCard.ring]"
             v-for="(emojiImage, emojiImageIndex) in lastValidState.emojiImages"
             :key="emojiImageIndex"
           >
