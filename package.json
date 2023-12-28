@@ -37,6 +37,7 @@
     "@types/node": "20.10.5",
     "dotenv-cli": "7.3.0",
     "downloadjs": "1.4.7",
+    "emoji-toolkit": "8.0.0",
     "html-to-image": "1.11.11",
     "nuxt": "3.9.0",
     "typescript": "5.3.3",

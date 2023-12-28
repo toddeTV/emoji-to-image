@@ -26,6 +26,9 @@ devDependencies:
   downloadjs:
     specifier: 1.4.7
     version: 1.4.7
+  emoji-toolkit:
+    specifier: 8.0.0
+    version: 8.0.0
   html-to-image:
     specifier: 1.11.11
     version: 1.11.11
@@ -3049,6 +3052,10 @@ packages:
 
   /emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
+    dev: true
+
+  /emoji-toolkit@8.0.0:
+    resolution: {integrity: sha512-Vz8YIqQJsQ+QZ4yuKMMzliXceayqfWbNjb6bST+vm77QAhU2is3I+/PRxrNknW+q1bvHHMgjLCQXxzINWLVapg==}
     dev: true
 
   /encodeurl@1.0.2:
