@@ -21,6 +21,7 @@ const schema = z.object({
   emoji: z.string().emoji(),
   width: z.number().int().min(8).max(512),
   height: z.number().int().min(8).max(512),
+  bgTransparent: z.boolean(),
   bgColor: z.string().min(4).max(9).regex(/^#/),
   gridSize: z.number().int().min(1).max(16),
   emojiScale: z.number().int().min(1).max(100),
@@ -43,6 +44,7 @@ const state = reactive<SchemaType>({
   emoji: "😀😃😅😄",
   width: 64,
   height: 64,
+  bgTransparent: false,
   bgColor: "#392580",
   gridSize: 2,
   emojiScale: 80,
@@ -119,12 +121,15 @@ async function onSubmit(event: FormSubmitEvent<SchemaType>) {
 }
 
 async function divToPngAndDownload() {
-  const domElement = document.getElementById("pngWrapper");
-  if (domElement === null) {
-    return;
+  const emojiImagesLength = lastValidState.value!.emojiImages.length;
+  for (let i = 0; i < emojiImagesLength; i++) {
+    const domElement = document.getElementById(`pngWrapper${i}`);
+    if (domElement === null) {
+      return;
+    }
+    const dataUrl = await toPng(domElement);
+    download(dataUrl, `emoji-image-${i}.png`, "image/png");
   }
-  const dataUrl = await toPng(domElement);
-  download(dataUrl, "my-node.png", "image/png");
 }
 
 const nuxtUiConfigCard = getNuxtUiConfig("card", card);
@@ -137,14 +142,14 @@ const nuxtUiConfigCard = getNuxtUiConfig("card", card);
         <template #header> Input </template>
 
         <div class="flex flex-col gap-2">
-          <UFormGroup label="Emojis" name="emoji">
+          <UFormGroup label="Emojis" name="emoji" class="max-w-sm">
             <UInput v-model="state.emoji" type="text" />
           </UFormGroup>
 
           <UFormGroup label="Dimensions">
             <div class="flex gap-x-2">
-              <UFormGroup name="width">
-                <UInput v-model="state.width" class="w-28" type="number">
+              <UFormGroup name="width" class="max-w-[120px]">
+                <UInput v-model="state.width" type="number">
                   <template #trailing>
                     <span class="text-gray-500 dark:text-gray-400 text-xs"
                       >px</span
@@ -155,8 +160,8 @@ const nuxtUiConfigCard = getNuxtUiConfig("card", card);
 
               <UIcon name="i-ph-x-bold" class="mt-2.5" />
 
-              <UFormGroup name="height">
-                <UInput v-model="state.height" class="w-28" type="number">
+              <UFormGroup name="height" class="max-w-[120px]">
+                <UInput v-model="state.height" type="number">
                   <template #trailing>
                     <span class="text-gray-500 dark:text-gray-400 text-xs"
                       >px</span
@@ -167,15 +172,26 @@ const nuxtUiConfigCard = getNuxtUiConfig("card", card);
             </div>
           </UFormGroup>
 
-          <UFormGroup label="Background Color" name="bgColor">
-            <UInput v-model="state.bgColor" type="color" />
+          <UFormGroup label="Background Transparent" name="bgTransparent">
+            <UCheckbox
+              v-model="state.bgTransparent"
+              label="Background Transparent"
+            />
           </UFormGroup>
 
-          <UFormGroup label="Grid Size NxN" name="gridSize">
+          <UFormGroup label="Background Color" name="bgColor" class="max-w-sm">
+            <UInput
+              v-model="state.bgColor"
+              type="color"
+              :disabled="state.bgTransparent"
+            />
+          </UFormGroup>
+
+          <UFormGroup label="Grid Size NxN" name="gridSize" class="max-w-sm">
             <UInput v-model="state.gridSize" type="number" />
           </UFormGroup>
 
-          <UFormGroup label="Grid Type" name="gridType">
+          <UFormGroup label="Grid Type" name="gridType" class="max-w-sm">
             <USelect
               v-model="state.gridType"
               :options="gridTypes"
@@ -183,8 +199,12 @@ const nuxtUiConfigCard = getNuxtUiConfig("card", card);
             />
           </UFormGroup>
 
-          <UFormGroup label="Emoji Scale" name="emojiScale">
-            <UInput v-model="state.emojiScale" class="w-28" type="number">
+          <UFormGroup
+            label="Emoji Scale"
+            name="emojiScale"
+            class="max-w-[120px]"
+          >
+            <UInput v-model="state.emojiScale" type="number">
               <template #trailing>
                 <span class="text-gray-500 dark:text-gray-400 text-xs">%</span>
               </template>
@@ -206,7 +226,11 @@ const nuxtUiConfigCard = getNuxtUiConfig("card", card);
               :style="`
                 width: ${lastValidState.width}px;
                 height: ${lastValidState.height}px;
-                background-color: ${lastValidState.bgColor};
+                background-color: ${
+                  lastValidState.bgTransparent
+                    ? 'transparent'
+                    : lastValidState.bgColor
+                };
               `"
               class="flex flex-col justify-evenly"
             >
