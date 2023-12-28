@@ -25,15 +25,19 @@ const schema = z.object({
   gridType: z.union([z.literal("even"), z.literal("fill")]),
 });
 
-type Schema = z.output<typeof schema>;
+type SchemaType = z.output<typeof schema>;
 
-type SchemaWithTransformedEmojis = Schema & {
-  emojiImages: string[][][];
+type EmojiImageType = EmojiRowType[];
+type EmojiRowType = EmojiType[];
+type EmojiType = string;
+
+type SchemaTransformedType = SchemaType & {
+  emojiImages: EmojiImageType[];
   emojiContainerDimensionPx: number;
   emojiFontSizePx: number;
 };
 
-const state = reactive<Schema>({
+const state = reactive<SchemaType>({
   emoji: "😀😃😅😄",
   width: 64,
   height: 64,
@@ -43,7 +47,7 @@ const state = reactive<Schema>({
   gridType: "even",
 });
 
-const lastValidState = ref<SchemaWithTransformedEmojis>(getValidState(state)!); //TODO do not force non undefined here
+const lastValidState = ref<SchemaTransformedType>(getValidState(state)!); //TODO do not force non undefined here
 
 watch(
   () => state,
@@ -58,8 +62,8 @@ watch(
 );
 
 function getValidState(
-  newState: Schema
-): SchemaWithTransformedEmojis | undefined {
+  newState: SchemaType
+): SchemaTransformedType | undefined {
   if (schema.safeParse(newState).success) {
     const emojiContainerDimensionPx = getEmojiContainerDimensionPx(
       newState.width,
@@ -79,13 +83,13 @@ function getValidState(
 function splitEmojis(
   emoji: string,
   gridSize: number
-): SchemaWithTransformedEmojis["emojiImages"] {
+): SchemaTransformedType["emojiImages"] {
   const emojiArray: string[] = [...emoji]; //TODO this does not work if combined emojis are used (e.g. 🏳️‍🌈 or 👨‍👨‍👧‍👧)
-  const rows = Array.from(
+  const rows: EmojiRowType[] = Array.from(
     { length: Math.ceil(emojiArray.length / gridSize) },
     (_, index) => emojiArray.slice(index * gridSize, (index + 1) * gridSize)
   );
-  const emojiImages = Array.from(
+  const emojiImages: EmojiImageType[] = Array.from(
     { length: Math.ceil(rows.length / gridSize) },
     (_, index) => rows.slice(index * gridSize, (index + 1) * gridSize)
   );
@@ -96,7 +100,7 @@ function getEmojiContainerDimensionPx(
   width: number,
   height: number,
   gridSize: number
-): SchemaWithTransformedEmojis["emojiContainerDimensionPx"] {
+): SchemaTransformedType["emojiContainerDimensionPx"] {
   const useSmallerDimension = width > height ? height : width;
   const size = Math.floor(useSmallerDimension / gridSize);
   return size;
@@ -104,11 +108,11 @@ function getEmojiContainerDimensionPx(
 
 function getEmojiFontSizePx(
   emojiContainerDimensionPx: number
-): SchemaWithTransformedEmojis["emojiFontSizePx"] {
+): SchemaTransformedType["emojiFontSizePx"] {
   return Math.floor(emojiContainerDimensionPx * (state.emojiScale / 100));
 }
 
-async function onSubmit(event: FormSubmitEvent<Schema>) {
+async function onSubmit(event: FormSubmitEvent<SchemaType>) {
   divToPngAndDownload();
 }
 
