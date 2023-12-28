@@ -121,12 +121,15 @@ async function onSubmit(event: FormSubmitEvent<SchemaType>) {
 }
 
 async function divToPngAndDownload() {
-  const domElement = document.getElementById("pngWrapper");
-  if (domElement === null) {
-    return;
+  const emojiImagesLength = lastValidState.value!.emojiImages.length;
+  for (let i = 0; i < emojiImagesLength; i++) {
+    const domElement = document.getElementById(`pngWrapper${i}`);
+    if (domElement === null) {
+      return;
+    }
+    const dataUrl = await toPng(domElement);
+    download(dataUrl, `emoji-image-${i}.png`, "image/png");
   }
-  const dataUrl = await toPng(domElement);
-  download(dataUrl, "my-node.png", "image/png");
 }
 
 const nuxtUiConfigCard = getNuxtUiConfig("card", card);
