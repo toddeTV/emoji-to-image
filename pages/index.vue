@@ -21,6 +21,7 @@ const schema = z.object({
   emoji: z.string().emoji(),
   width: z.number().int().min(8).max(512),
   height: z.number().int().min(8).max(512),
+  bgTransparent: z.boolean(),
   bgColor: z.string().min(4).max(9).regex(/^#/),
   gridSize: z.number().int().min(1).max(16),
   emojiScale: z.number().int().min(1).max(100),
@@ -43,6 +44,7 @@ const state = reactive<SchemaType>({
   emoji: "😀😃😅😄",
   width: 64,
   height: 64,
+  bgTransparent: false,
   bgColor: "#392580",
   gridSize: 2,
   emojiScale: 80,
@@ -167,8 +169,19 @@ const nuxtUiConfigCard = getNuxtUiConfig("card", card);
             </div>
           </UFormGroup>
 
+          <UFormGroup label="Background Transparent" name="bgTransparent">
+            <UCheckbox
+              v-model="state.bgTransparent"
+              label="Background Transparent"
+            />
+          </UFormGroup>
+
           <UFormGroup label="Background Color" name="bgColor">
-            <UInput v-model="state.bgColor" type="color" />
+            <UInput
+              v-model="state.bgColor"
+              type="color"
+              :disabled="state.bgTransparent"
+            />
           </UFormGroup>
 
           <UFormGroup label="Grid Size NxN" name="gridSize">
@@ -206,7 +219,11 @@ const nuxtUiConfigCard = getNuxtUiConfig("card", card);
               :style="`
                 width: ${lastValidState.width}px;
                 height: ${lastValidState.height}px;
-                background-color: ${lastValidState.bgColor};
+                background-color: ${
+                  lastValidState.bgTransparent
+                    ? 'transparent'
+                    : lastValidState.bgColor
+                };
               `"
               class="flex flex-col justify-evenly"
             >
