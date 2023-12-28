@@ -6,16 +6,19 @@ import type { FormSubmitEvent } from "#ui/types";
 
 const schema = z.object({
   emoji: z.string().emoji(),
-  width: z.number().min(8).max(512),
-  height: z.number().min(8).max(512),
+  width: z.number().int().min(8).max(512),
+  height: z.number().int().min(8).max(512),
   bgColor: z.string().min(4).max(9).regex(/^#/),
-  gridSize: z.number().min(1).max(16),
+  gridSize: z.number().int().min(1).max(16),
+  emojiScale: z.number().int().min(1).max(100),
 });
 
 type Schema = z.output<typeof schema>;
 
 type SchemaWithTransformedEmojis = Schema & {
   emojiImages: string[][][];
+  emojiContainerDimensionPx: number;
+  emojiFontSizePx: number;
 };
 
 const state = reactive<Schema>({
@@ -24,6 +27,7 @@ const state = reactive<Schema>({
   height: 64,
   bgColor: "#392580",
   gridSize: 2,
+  emojiScale: 80,
 });
 
 const lastValidState = ref<SchemaWithTransformedEmojis>(getValidState(state)!); //TODO do not force non undefined here
@@ -44,9 +48,16 @@ function getValidState(
   newState: Schema
 ): SchemaWithTransformedEmojis | undefined {
   if (schema.safeParse(newState).success) {
+    const emojiContainerDimensionPx = getEmojiContainerDimensionPx(
+      newState.width,
+      newState.height,
+      newState.gridSize
+    );
     return {
       ...newState,
       emojiImages: splitEmojis(state.emoji, state.gridSize),
+      emojiContainerDimensionPx: emojiContainerDimensionPx,
+      emojiFontSizePx: getEmojiFontSizePx(emojiContainerDimensionPx),
     };
   }
   return undefined;
@@ -66,6 +77,22 @@ function splitEmojis(
     (_, index) => rows.slice(index * gridSize, (index + 1) * gridSize)
   );
   return emojiImages;
+}
+
+function getEmojiContainerDimensionPx(
+  width: number,
+  height: number,
+  gridSize: number
+): SchemaWithTransformedEmojis["emojiContainerDimensionPx"] {
+  const useSmallerDimension = width > height ? height : width;
+  const size = Math.floor(useSmallerDimension / gridSize);
+  return size;
+}
+
+function getEmojiFontSizePx(
+  emojiContainerDimensionPx: number
+): SchemaWithTransformedEmojis["emojiFontSizePx"] {
+  return Math.floor(emojiContainerDimensionPx * (state.emojiScale / 100));
 }
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
@@ -130,6 +157,14 @@ async function divToPngAndDownload() {
           <UFormGroup label="Grid Size NxN" name="gridSize">
             <UInput v-model="state.gridSize" type="number" />
           </UFormGroup>
+
+          <UFormGroup label="Emoji Scale" name="emojiScale">
+            <UInput v-model="state.emojiScale" class="w-28" type="number">
+              <template #trailing>
+                <span class="text-gray-500 dark:text-gray-400 text-xs">%</span>
+              </template>
+            </UInput>
+          </UFormGroup>
         </div>
       </UCard>
 
@@ -155,7 +190,17 @@ async function divToPngAndDownload() {
                 :key="rowIndex"
                 class="flex flex-row justify-evenly"
               >
-                <div v-for="(emoji, emojiIndex) in row" :key="emojiIndex">
+                <div
+                  v-for="(emoji, emojiIndex) in row"
+                  :key="emojiIndex"
+                  class="flex justify-center items-center"
+                  :style="`
+                    width: ${lastValidState.emojiContainerDimensionPx}px;
+                    height: ${lastValidState.emojiContainerDimensionPx}px;
+                    line-height: ${lastValidState.emojiFontSizePx}px;
+                    font-size: ${lastValidState.emojiFontSizePx}px;
+                  `"
+                >
                   {{ emoji }}
                 </div>
               </div>
@@ -168,6 +213,11 @@ async function divToPngAndDownload() {
         <UButton type="submit">
           Download {{ lastValidState.width }}px x {{ lastValidState.height }}px
         </UButton>
+      </UCard>
+
+      <UCard>
+        <template #header> Debug </template>
+        <pre>{{ lastValidState }}</pre>
       </UCard>
     </UForm>
   </div>
