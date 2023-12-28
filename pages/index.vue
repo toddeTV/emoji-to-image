@@ -271,11 +271,6 @@ async function divToPngAndDownload() {
           Download {{ lastValidState.width }}px x {{ lastValidState.height }}px
         </UButton>
       </UCard>
-
-      <UCard>
-        <template #header> Debug </template>
-        <pre>{{ lastValidState }}</pre>
-      </UCard>
     </UForm>
   </div>
 </template>
