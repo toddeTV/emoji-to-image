@@ -139,14 +139,14 @@ const nuxtUiConfigCard = getNuxtUiConfig("card", card);
         <template #header> Input </template>
 
         <div class="flex flex-col gap-2">
-          <UFormGroup label="Emojis" name="emoji">
+          <UFormGroup label="Emojis" name="emoji" class="max-w-sm">
             <UInput v-model="state.emoji" type="text" />
           </UFormGroup>
 
           <UFormGroup label="Dimensions">
             <div class="flex gap-x-2">
-              <UFormGroup name="width">
-                <UInput v-model="state.width" class="w-28" type="number">
+              <UFormGroup name="width" class="max-w-[120px]">
+                <UInput v-model="state.width" type="number">
                   <template #trailing>
                     <span class="text-gray-500 dark:text-gray-400 text-xs"
                       >px</span
@@ -157,8 +157,8 @@ const nuxtUiConfigCard = getNuxtUiConfig("card", card);
 
               <UIcon name="i-ph-x-bold" class="mt-2.5" />
 
-              <UFormGroup name="height">
-                <UInput v-model="state.height" class="w-28" type="number">
+              <UFormGroup name="height" class="max-w-[120px]">
+                <UInput v-model="state.height" type="number">
                   <template #trailing>
                     <span class="text-gray-500 dark:text-gray-400 text-xs"
                       >px</span
@@ -176,7 +176,7 @@ const nuxtUiConfigCard = getNuxtUiConfig("card", card);
             />
           </UFormGroup>
 
-          <UFormGroup label="Background Color" name="bgColor">
+          <UFormGroup label="Background Color" name="bgColor" class="max-w-sm">
             <UInput
               v-model="state.bgColor"
               type="color"
@@ -184,11 +184,11 @@ const nuxtUiConfigCard = getNuxtUiConfig("card", card);
             />
           </UFormGroup>
 
-          <UFormGroup label="Grid Size NxN" name="gridSize">
+          <UFormGroup label="Grid Size NxN" name="gridSize" class="max-w-sm">
             <UInput v-model="state.gridSize" type="number" />
           </UFormGroup>
 
-          <UFormGroup label="Grid Type" name="gridType">
+          <UFormGroup label="Grid Type" name="gridType" class="max-w-sm">
             <USelect
               v-model="state.gridType"
               :options="gridTypes"
@@ -196,8 +196,12 @@ const nuxtUiConfigCard = getNuxtUiConfig("card", card);
             />
           </UFormGroup>
 
-          <UFormGroup label="Emoji Scale" name="emojiScale">
-            <UInput v-model="state.emojiScale" class="w-28" type="number">
+          <UFormGroup
+            label="Emoji Scale"
+            name="emojiScale"
+            class="max-w-[120px]"
+          >
+            <UInput v-model="state.emojiScale" type="number">
               <template #trailing>
                 <span class="text-gray-500 dark:text-gray-400 text-xs">%</span>
               </template>
