@@ -1,7 +1,9 @@
 <template>
-  <div class="page">
+  <div class="page gap-4 p-4">
     <Header />
-    <slot />
+    <div>
+      <slot />
+    </div>
     <Footer />
   </div>
 </template>
