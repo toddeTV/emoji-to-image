@@ -89,6 +89,7 @@ function splitEmojis(
   gridSize: number
 ): SchemaTransformedType["emojiImages"] {
   const emojiArray: string[] = [...emoji]; //TODO this does not work if combined emojis are used (e.g. 🏳️‍🌈 or 👨‍👨‍👧‍👧)
+  // try using: https://stackoverflow.com/questions/24531751/how-can-i-split-a-string-containing-emoji-into-an-array
   const rows: EmojiRowType[] = Array.from(
     { length: Math.ceil(emojiArray.length / gridSize) },
     (_, index) => emojiArray.slice(index * gridSize, (index + 1) * gridSize)
