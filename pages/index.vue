@@ -128,10 +128,6 @@ async function divToPngAndDownload() {
 
 <template>
   <div class="flex flex-col gap-4 m-4">
-    <UCard>
-      <ColorModeSwitch />
-    </UCard>
-
     <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
       <UCard>
         <template #header> Input </template>
